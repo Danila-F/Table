@@ -44,6 +44,9 @@ def column_with_alignment(strs, align_type='left'):
     return column[:-1]
 
 
+str_to_center
+
+
 class Table:
     def __init__(self,
                  rows=0,
@@ -88,9 +91,50 @@ class Table:
     def new_row(self):
         pass
 
+    def edit_cell(self,
+                  row_num,
+                  col_num,
+                  content=None,
+                  size=None,
+                  align=None,
+                  cell_type=None,
+                  cell_format=None  # ,
+                  # row_sep=None,
+                  # col_sep=None
+                  ):
+        if content != self.arr[row_num - 1][col_num - 1]["content"] and content is not None:
+            self.arr[row_num - 1][col_num - 1]["content"] = content
+        if size != self.arr[row_num - 1][col_num - 1]["size"] and size is not None:
+            self.arr[row_num - 1][col_num - 1]["size"] = size
+        if align != self.arr[row_num - 1][col_num - 1]["align"] and align is not None:
+            self.arr[row_num - 1][col_num - 1]["align"] = align
+        if cell_type != self.arr[row_num - 1][col_num - 1]["type"] and cell_type is not None:
+            self.arr[row_num - 1][col_num - 1]["type"] = cell_type
+        if cell_format != self.arr[row_num - 1][col_num - 1]["format"] and cell_format is not None:
+            self.arr[row_num - 1][col_num - 1]["format"] = cell_format
+
+    #         if row_sep != self.arr[row_num - 1][col_num - 1]["row_sep"] and row_sep is not None:
+    #             self.arr[row_num - 1][col_num - 1]["row_sep"] = row_sep
+    #         if col_sep != self.arr[row_num - 1][col_num - 1]["col_sep"] and col_sep is not None:
+    #             self.arr[row_num - 1][col_num - 1]["col_sep"] = col_sep
+
+    def cell_to_string(self, row, col):
+        return self.arr[row][col]["content"]
+
+    def show(self):
+        res_str = ""
+        for row in range(self.size()[1]):
+            for col in range(self.size()[0]):
+                res_str += self.cell_to_string(row, col)
+            res_str += "\n"
+        return res_str
+
     def size(self):
         return [self.columns, self.rows]
 
 
-table1 = Table(rows=2, columns=2)
+table1 = Table(rows=2, columns=3)
+table1.edit_cell(1, 1, content="a")
+print(table1.show())
+print(table1.arr)
 print("size is", table1.size())
